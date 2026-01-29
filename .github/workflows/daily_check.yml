@@ -1,14 +1,32 @@
+name: Daily YouTube Tracker
+
 on:
   schedule:
     - cron: '0 0 * * *' # Runs at midnight every day
+  workflow_dispatch: {}  # enables the "Run workflow" button (manual runs)
+
 jobs:
   run-tracker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install requests supabase google-api-python-client
+          fi
+
       - name: Run Script
         run: python tracker.py
         env:
-          YT_KEY: ${{ secrets.YT_API_KEY }}
-          SB_URL: ${{ secrets.SUPABASE_URL }}
-          SB_KEY: ${{ secrets.SUPABASE_KEY }}
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
