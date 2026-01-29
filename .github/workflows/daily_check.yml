@@ -1,0 +1,14 @@
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs at midnight every day
+jobs:
+  run-tracker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Script
+        run: python tracker.py
+        env:
+          YT_KEY: ${{ secrets.YT_API_KEY }}
+          SB_URL: ${{ secrets.SUPABASE_URL }}
+          SB_KEY: ${{ secrets.SUPABASE_KEY }}
