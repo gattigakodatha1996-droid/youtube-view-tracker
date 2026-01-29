@@ -27,6 +27,6 @@ jobs:
       - name: Run Script
         run: python tracker.py
         env:
-          YT_API_KEY: ${{ secrets.YT_API_KEY }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          YT_KEY: ${{ secrets.YT_API_KEY }}
+          SB_URL: ${{ secrets.SUPABASE_URL }}
+          SB_KEY: ${{ secrets.SUPABASE_KEY }}
